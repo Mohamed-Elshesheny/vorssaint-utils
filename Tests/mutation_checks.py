@@ -203,6 +203,17 @@ MUTATIONS = [
     ("overwrite unreadable notes", "storage", "Sources/Vorssaint/Services/QuickTools/ScratchpadStore.swift",
      "        guard canSave else { return false }", "        // guard canSave else { return false }",
      "damaged scratchpad blocks subsequent saves of empty and nonempty documents"),
+    ("a level of zero leaves the output unmuted", "mixer", "Sources/Vorssaint/Services/Audio/AppVolumeMixer.swift",
+     "            if systemOutputMuted != nil {\n"
+     "                let mutes = MixerRoutingSupport.mutesOutput(atVolume: value)\n"
+     "                adjustment.muted = mutes\n"
+     "                systemOutputMuted = mutes\n"
+     "            }\n",
+     "            if value > 0, systemOutputMuted != nil {\n"
+     "                adjustment.muted = false\n"
+     "                systemOutputMuted = false\n"
+     "            }\n",
+     "a level of zero writes the level and then mutes the output, as the system's own keys do"),
 ]
 
 
